@@ -22,7 +22,7 @@ export default function Login() {
 
     try {
       const res = await axios.post('/auth/login', form);
-      login(res.data.token, res.data.role);
+      login(res.data.token, res.data.email, res.data.role);
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
