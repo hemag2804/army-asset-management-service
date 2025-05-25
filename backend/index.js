@@ -8,6 +8,8 @@ const baseRoutes = require('./routes/base.route');
 const assetRoutes = require('./routes/asset.route');
 const purchaseRoutes = require('./routes/purchase.route');
 const transferRoutes = require('./routes/transfer.route');
+const assignmentRoutes = require('./routes/assignment.route');
+const expenditureRoutes = require('./routes/expenditure.route');
 
 const app = express();
 app.use(cors());
@@ -18,6 +20,8 @@ app.use('/api/bases', baseRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/purchases', purchaseRoutes);
 app.use('/api/transfers', transferRoutes);
+app.use('/api/assignments', assignmentRoutes);
+app.use('/api/expenditures', expenditureRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
