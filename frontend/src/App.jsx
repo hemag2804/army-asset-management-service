@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import BasePage from './pages/BasePage';
 import AssetPage from './pages/AssetPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import PurchasePage from './pages/PurchasePage';
 
 export default function App() {
   const { user } = useAuth();
@@ -24,6 +25,11 @@ export default function App() {
       <Route path="/assets" element={
         <ProtectedRoute allowedRoles={['admin']}>
           <AssetPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/purchases" element={
+        <ProtectedRoute allowedRoles={['admin', 'logistics']}>
+          <PurchasePage />
         </ProtectedRoute>
       } />
 
