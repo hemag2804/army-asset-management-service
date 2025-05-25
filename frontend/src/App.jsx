@@ -5,7 +5,7 @@ import { useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import Layout from './components/Layout';
-import Dashboard from './pages/DashboardPage';
+import DashboardPage from './pages/DashboardPage';
 import BasePage from './pages/BasePage';
 import AssetPage from './pages/AssetPage';
 import PurchasePage from './pages/PurchasePage';
@@ -25,7 +25,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/dashboard" element={
           <ProtectedRoute allowedRoles={['admin', 'commander', 'logistics']}>
-            <Dashboard />
+            <DashboardPage />
           </ProtectedRoute>
         } />
 
