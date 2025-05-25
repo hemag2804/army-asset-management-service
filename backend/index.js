@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth.route');
 const baseRoutes = require('./routes/base.route');
 const assetRoutes = require('./routes/asset.route');
 const purchaseRoutes = require('./routes/purchase.route');
+const transferRoutes = require('./routes/transfer.route');
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/bases', baseRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/purchases', purchaseRoutes);
+app.use('/api/transfers', transferRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
