@@ -4,6 +4,7 @@ const Purchase = require('../models/purchase.model');
 const Asset = require('../models/asset.model');
 const { authenticate } = require('../middlewares/auth.middleware');
 const { authorizeRoles } = require('../middlewares/role.middleware');
+const { logMovement } = require('../utils/logger');
 
 // Record a new purchase
 router.post('/', authenticate, authorizeRoles('admin', 'logistics'), async (req, res) => {
@@ -23,6 +24,14 @@ router.post('/', authenticate, authorizeRoles('admin', 'logistics'), async (req,
       baseId,
       quantity,
       purchasedBy: req.user.id
+    });
+
+    await logMovement({
+        userId: req.user.id,
+        action: 'purchase',
+        entityId: purchase._id,
+        entityType: 'Purchase',
+        data: purchase
     });
 
     res.status(201).json(purchase);
