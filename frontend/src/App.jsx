@@ -7,6 +7,7 @@ import BasePage from './pages/BasePage';
 import AssetPage from './pages/AssetPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PurchasePage from './pages/PurchasePage';
+import TransferPage from './pages/TransferPage';
 
 export default function App() {
   const { user } = useAuth();
@@ -30,6 +31,11 @@ export default function App() {
       <Route path="/purchases" element={
         <ProtectedRoute allowedRoles={['admin', 'logistics']}>
           <PurchasePage />
+        </ProtectedRoute>
+      } />
+      <Route path="/transfers" element={
+        <ProtectedRoute allowedRoles={['admin', 'commander']}>
+          <TransferPage />
         </ProtectedRoute>
       } />
 
