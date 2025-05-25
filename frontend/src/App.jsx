@@ -2,12 +2,14 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { useAuth } from './context/AuthContext';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/DashboardPage';
 import BasePage from './pages/BasePage';
 import AssetPage from './pages/AssetPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import PurchasePage from './pages/PurchasePage';
 import TransferPage from './pages/TransferPage';
+import AssignmentPage from './pages/AssignmentPage';
+import ExpenditurePage from './pages/ExpenditurePage';
 
 export default function App() {
   const { user } = useAuth();
@@ -36,6 +38,16 @@ export default function App() {
       <Route path="/transfers" element={
         <ProtectedRoute allowedRoles={['admin', 'commander']}>
           <TransferPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/assignments" element={
+        <ProtectedRoute allowedRoles={['admin', 'commander']}>
+          <AssignmentPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/expenditures" element={
+        <ProtectedRoute allowedRoles={['admin', 'commander']}>
+          <ExpenditurePage />
         </ProtectedRoute>
       } />
 
