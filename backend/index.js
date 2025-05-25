@@ -10,6 +10,7 @@ const purchaseRoutes = require('./routes/purchase.route');
 const transferRoutes = require('./routes/transfer.route');
 const assignmentRoutes = require('./routes/assignment.route');
 const expenditureRoutes = require('./routes/expenditure.route');
+const dashboardRoutes = require('./routes/dashboard.route');
 
 const app = express();
 app.use(cors());
@@ -22,6 +23,7 @@ app.use('/api/purchases', purchaseRoutes);
 app.use('/api/transfers', transferRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/expenditures', expenditureRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
