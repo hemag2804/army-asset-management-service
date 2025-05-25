@@ -4,6 +4,7 @@ const Transfer = require('../models/transfer.model');
 const Asset = require('../models/asset.model');
 const { authenticate } = require('../middlewares/auth.middleware');
 const { authorizeRoles } = require('../middlewares/role.middleware');
+const { logMovement } = require('../utils/logger');
 
 // Transfer asset between bases
 router.post('/', authenticate, authorizeRoles('admin', 'commander'), async (req, res) => {
@@ -45,6 +46,14 @@ router.post('/', authenticate, authorizeRoles('admin', 'commander'), async (req,
       toBaseId,
       quantity,
       transferredBy: req.user.id
+    });
+
+    await logMovement({
+        userId: req.user.id,
+        action: 'transfer',
+        entityId: transfer._id,
+        entityType: 'Transfer',
+        data: transfer
     });
 
     res.status(201).json(transfer);

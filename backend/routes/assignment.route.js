@@ -4,6 +4,7 @@ const Assignment = require('../models/assignment.model');
 const Asset = require('../models/asset.model');
 const { authenticate } = require('../middlewares/auth.middleware');
 const { authorizeRoles } = require('../middlewares/role.middleware');
+const { logMovement } = require('../utils/logger');
 
 // Assign asset
 router.post('/', authenticate, authorizeRoles('admin', 'commander'), async (req, res) => {
@@ -24,6 +25,14 @@ router.post('/', authenticate, authorizeRoles('admin', 'commander'), async (req,
       baseId,
       quantity,
       assignedBy: req.user.id
+    });
+
+    await logMovement({
+        userId: req.user.id,
+        action: 'assignment',
+        entityId: assignment._id,
+        entityType: 'Assignment',
+        data: assignment
     });
 
     res.status(201).json(assignment);

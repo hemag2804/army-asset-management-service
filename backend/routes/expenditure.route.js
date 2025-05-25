@@ -4,6 +4,7 @@ const Expenditure = require('../models/expenditure.model');
 const Asset = require('../models/asset.model');
 const { authenticate } = require('../middlewares/auth.middleware');
 const { authorizeRoles } = require('../middlewares/role.middleware');
+const { logMovement } = require('../utils/logger');
 
 // Record expenditure
 router.post('/', authenticate, authorizeRoles('admin', 'commander'), async (req, res) => {
@@ -26,6 +27,15 @@ router.post('/', authenticate, authorizeRoles('admin', 'commander'), async (req,
       reason,
       expendedBy: req.user.id
     });
+
+    
+    await logMovement({
+        userId: req.user.id,
+        action: 'expenditure',
+        entityId: expenditure._id,
+        entityType: 'Expenditure',
+        data: expenditure
+    })
 
     res.status(201).json(expenditure);
   } catch (err) {
